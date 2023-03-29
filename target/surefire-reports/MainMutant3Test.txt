@@ -1,0 +1,12 @@
+-------------------------------------------------------------------------------
+Test set: MainMutant3Test
+-------------------------------------------------------------------------------
+Tests run: 3, Failures: 2, Errors: 0, Skipped: 0, Time elapsed: 0.025 s <<< FAILURE! - in MainMutant3Test
+equivalence  Time elapsed: 0.022 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: array contents differ at index [1], expected: <Suma cifrelor numarului 15, adunata cu suma cifrelor numarului 17, este mai mare decat 11> but was: <Suma cifrelor numarului 15, adunata cu suma cifrelor numarului 17, nu este mai mare decat 11>
+	at MainMutant3Test.equivalence(MainMutant3Test.java:78)
+
+gce  Time elapsed: 0.002 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: array contents differ at index [1], expected: <Suma cifrelor numarului 15, adunata cu suma cifrelor numarului 17, este mai mare decat 11> but was: <Suma cifrelor numarului 15, adunata cu suma cifrelor numarului 17, nu este mai mare decat 11>
+	at MainMutant3Test.gce(MainMutant3Test.java:111)
+

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Main.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Testare-Si-Verificare</a> &gt; <a href="index.source.html" class="el_package">default</a> &gt; <span class="el_source">Main.java</span></div><h1>Main.java</h1><pre class="source lang-java linenums">import java.util.Scanner;
+
+<span class="nc" id="L3">public class Main {</span>
+
+    /*
+
+    Se dau trei numere a, b si c, cuprinse in intervalul [10, 10000]. Sa se verifice daca primele doua numere sunt prime
+    intre ele si daca suma cifrelor lui a, adunata cu suma cifrelor lui b, este mai mare decat al treilea numar.
+    Programul va intoarce un vector de string-uri astfel:
+    - Daca cel putin unul dintre numere nu face parte din intervalul dat, prima pozitie din vector va contine mesajul
+    de eroare &quot;Cel putin unul dintre numere nu face parte din intervalul dat&quot;
+    - Daca toate numerele fac parte din intervalul dat, vectorul va fi creat dupa cum urmeaza:
+        * Prima pozitie din vector va contine mesajul:
+                &quot;Numerele {a} si {b} sunt/nu sunt prime intre ele&quot;
+        * A doua pozitie din vector va contine mesajul:
+                &quot;Suma cifrelor numarului {a}, adunata cu suma cifrelor numarului {b}, este/nu este mai mare decat {c}&quot;
+
+    */
+
+    private static boolean isNumberInvalid(int number) {
+<span class="fc bfc" id="L21" title="All 4 branches covered.">        return number &lt; 10 || number &gt; 10000;</span>
+    }
+
+    private static int computeSumOfDigits(int number) {
+<span class="fc" id="L25">        int numberCopy = number, sum = 0, digit;</span>
+<span class="fc bfc" id="L26" title="All 2 branches covered.">        while (numberCopy &gt; 0){</span>
+<span class="fc" id="L27">            digit = numberCopy % 10;</span>
+<span class="fc" id="L28">            numberCopy /= 10;</span>
+<span class="fc" id="L29">            sum += digit;</span>
+        }
+<span class="fc" id="L31">        return sum;</span>
+    }
+
+    private static int getGreatestCommonDivisor(int a, int b) {
+<span class="fc bfc" id="L35" title="All 2 branches covered.">        while (a != b) {</span>
+<span class="fc bfc" id="L36" title="All 2 branches covered.">            if (a &gt; b) {</span>
+<span class="fc" id="L37">                a -= b;</span>
+            } else {
+<span class="fc" id="L39">                b -= a;</span>
+            }
+        }
+<span class="fc" id="L42">        return a;</span>
+    }
+
+    private static boolean areNumbersCoPrime(int a, int b) {
+<span class="fc bfc" id="L46" title="All 2 branches covered.">        return getGreatestCommonDivisor(a, b) == 1;</span>
+    }
+
+    static String[] calculate(int a, int b, int c) {
+<span class="fc bfc" id="L50" title="All 6 branches covered.">        if (isNumberInvalid(a) || isNumberInvalid(b) || isNumberInvalid(c)) {</span>
+<span class="fc" id="L51">            return new String[] {&quot;Cel putin unul dintre numere nu face parte din intervalul dat&quot;};</span>
+        }
+<span class="fc" id="L53">        String[] responses = new String[2];</span>
+
+<span class="fc bfc" id="L55" title="All 2 branches covered.">        if (areNumbersCoPrime(a, b)) {</span>
+<span class="fc" id="L56">            responses[0] = String.format(&quot;Numerele %d si %d sunt prime intre ele&quot;, a, b);</span>
+        } else {
+<span class="fc" id="L58">            responses[0] = String.format(&quot;Numerele %d si %d nu sunt prime intre ele&quot;, a, b);</span>
+        }
+
+<span class="fc bfc" id="L61" title="All 2 branches covered.">        if (computeSumOfDigits(a) + computeSumOfDigits(b) &gt; c) {</span>
+<span class="fc" id="L62">            responses[1] = String.format(</span>
+<span class="fc" id="L63">                    &quot;Suma cifrelor numarului %d, adunata cu suma cifrelor numarului %d, este mai mare decat %d&quot;, a, b, c);</span>
+        } else {
+<span class="fc" id="L65">            responses[1] = String.format(</span>
+<span class="fc" id="L66">                    &quot;Suma cifrelor numarului %d, adunata cu suma cifrelor numarului %d, nu este mai mare decat %d&quot;, a, b, c);</span>
+        }
+
+<span class="fc" id="L69">        return responses;</span>
+    }
+
+    public static void main(String[] args) {
+<span class="nc" id="L73">        Scanner scanner = new Scanner(System.in);</span>
+<span class="nc" id="L74">        int a = scanner.nextInt(), b = scanner.nextInt(), c = scanner.nextInt();</span>
+<span class="nc" id="L75">        scanner.close();</span>
+
+<span class="nc" id="L77">        System.out.printf(&quot;a = %d, b = %d, c = %d%n&quot;, a, b, c);</span>
+<span class="nc" id="L78">        System.out.printf(&quot;The result is:\n&quot; + String.join(&quot;\n&quot;, calculate(a, b, c)));</span>
+<span class="nc" id="L79">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>
